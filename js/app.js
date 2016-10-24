@@ -14,21 +14,27 @@ app.controller('TaskListCtrl', function($scope,$log){
 		$scope.selectTask({});
 		$scope.form_mode = 'creation';
 	};
-	$scope.saveTask = function() {
-
+	$scope.saveTask = function(task) {
+		task.id = $scope.todo_list.length;
+		$scope.todo_list.push(angular.copy(task));
 	};
 	$scope.selectTask = function(task) {
 		$log.debug('TaskListCtrl: task selected');
 		$log.debug(task);
 		$scope.selected = {task: task};
-		$scope.editable = false;
-		$scope.creation = false;
+		$scope.form_mode = 'show';
 		$(edit_form_element).modal('show');
 	};
 	$scope.editTask = function(event,task){
 		event.stopPropagation();
 		$scope.selectTask(task);
-		$scope.editable = true;
+		$scope.form_mode = 'edition';
+	};
+	$scope.removeTask = function(event,task) {
+		event.stopPropagation();
+		$scope.selected = {task: task};
+		$scope.form_mode = 'deletion';
+		$(delete_modal_element).modal('show');
 	};
 	$scope.updateTask = function(task) {
 		$log.debug('TaskListCtrl: task update');
@@ -39,18 +45,13 @@ app.controller('TaskListCtrl', function($scope,$log){
 			}
 		});
 	};
-	$scope.removeTask = function(event,task) {
-		event.stopPropagation();
-		$scope.selected = {task: task};
-		$(delete_modal_element).modal('show');
-	};
 	$scope.deleteTask = function(task) {
 		angular.forEach($scope.todo_list, function(item, key) {
 			if(item.id == task.id){
 				$scope.todo_list.splice(key,1);
 			}
 		});
-	}
+	};
 });
 
 app.directive('task', function(){
@@ -60,14 +61,15 @@ app.directive('task', function(){
 	}
 });
 
-app.directive('editform',function($log){
+app.directive('editform',function($log,$timeout){
 	return {
 		restrict: 'E',
 		scope: {
 			selected: '=selectedData',
-			mode_editable: '=modeEditable',
+			form_mode: '=formMode',
 			onUpdate: '&',
-			onDelete: '&'
+			onDelete: '&',
+			onSave: '&'
 		},
 		templateUrl: '../partials/editform.html',
 		link: function(scope, element, attrs){
@@ -82,20 +84,22 @@ app.directive('editform',function($log){
 
 			scope.cancel = function(){
 				$log.debug('Edit form: cancel');
-				scope.mode_editable = false;
+				scope.form_mode = 'show';
 				scope.current_task = angular.copy(scope.selected.task);
 			};
 
 			scope.edit = function(){
 				$log.debug('Edit form: edit');
-				scope.mode_editable = true;
+				scope.form_mode = 'edition';
+				scope.current_task = angular.copy(scope.selected.task);
 			};
 
 			scope.update = function(){
 				$log.debug('Edit form: update');
 				$log.debug(scope.current_task);
 				scope.onUpdate({task: scope.current_task});
-				scope.mode_editable = false;
+				scope.form_mode = 'show';
+				scope.showFlashMessage();
 			};
 
 			scope.delete = function(){
@@ -107,6 +111,28 @@ app.directive('editform',function($log){
 				$log.debug('Edit form: deletion confirmed');
 				scope.onDelete({task: scope.selected.task});
 				scope.current_task = undefined;
+			};
+
+			scope.reset = function(){
+				// scope.current_task.title = '';
+				// scope.current_task.content = '';
+			};
+
+			scope.save = function(){
+				scope.onSave({task: scope.current_task});
+				scope.current_task = {};
+			};
+
+			scope.showFlashMessage = function(){
+				// scope.flash_msg.className += ' '+ 'active';
+				// $timeout(function(){
+				// 	scope.flash_msg.className = scope.flash_msg.className.replace(new RegExp(' active',"gi"),'');
+				// },1500);
+				
+				$('.flash-msg').show().addClass('active');
+				$timeout(function(){
+					$('.flash-msg').removeClass('active').hide();
+				},1500);
 			};
 		}
 	}

@@ -9,39 +9,45 @@
  -->
 
 
-<div class="modal" id="editform-modal" ng-switch="mode_editable">
+<div class="modal" id="editform-modal" ng-switch on="form_mode">
 	<div class="modal-dialog">
 		<div class="modal-content">
+			<div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <!-- <h4 class="modal-title">{{current_task.title}}</h4> -->
+		      </div>
 			<form class="well form-horizontal">
 				<fieldset>
-					<legend>Your task</legend>
 					<div class="form-group">
 						<div class="col-lg-10">
-							<b ng-switch-default>{{current_task.title}}</b>
-							<input ng-switch-when="true" ng-model="current_task.title" type="text" class="form-control" id="inputTitle" placeholder="Title">
+							<h4 ng-switch-when="show">{{current_task.title}}</h4>
+							<input ng-if="form_mode=='creation'||form_mode=='edition'" ng-model="current_task.title" type="text" class="form-control" id="inputTitle" placeholder="Title">
 						</div>
 					</div>
 					<div class="form-group">
 						<div class="col-lg-10">
-							<p ng-switch-default>{{current_task.content}}</p>
-							<textarea ng-switch-when="true" ng-model="current_task.content" class="form-control" rows="3" id="textArea" placeholder="Content"></textarea>
+							<p ng-switch-when="show">{{current_task.content}}</p>
+							<textarea ng-if="form_mode=='creation'||form_mode=='edition'" ng-model="current_task.content" class="form-control" rows="3" id="textArea" placeholder="Content"></textarea>
 						</div>
 					</div>
 					<div class="form-group">
-						<div class="col-sm-6 col-xs-8">
-							<button type="button" class="btn btn-default" ng-switch-when="true" ng-click="cancel()">Cancel</button>
-							<button type="reset" class="btn btn-info" ng-switch-when="true">Reset</button>
-							<button type="button" class="btn btn-primary" ng-click="edit()" ng-switch-default>
+						<div class="col-sm-8 col-xs-12">
+							<button type="button" class="btn btn-default" ng-switch-when="edition" ng-click="cancel()">Cancel</button>
+							<button type="reset" class="btn btn-info" ng-switch-when="edition" ng-click="reset()">Reset</button>
+							<button type="button" class="btn btn-primary" ng-click="edit()" ng-switch-when="show">
 								Edit
 							</button>
-							<button  type="button" class="btn btn-success" ng-switch-when="true" ng-click="update()">
+							<button  type="button" class="btn btn-success" ng-switch-when="edition" ng-click="update()">
 								Update
 							</button>
-							<button  type="button" class="btn btn-danger" ng-click="delete()" data-dismiss="modal">
+							<button type="button" class="btn btn-danger"  ng-if="form_mode=='show'||form_mode=='edition'" ng-click="delete()" data-dismiss="modal">
 								Delete
 							</button>
+							<button type="button" class="btn btn-success" ng-switch-when="creation" ng-click="save()" data-dismiss="modal">
+								Save
+							</button>
 						</div>
-						<div class="col-sm-5 col-sm-offset-1 col-xs-4">
+						<div class="col-sm-4 col-xs-12">
 							<div class="alert alert-success flash-msg" role="alert">Done!</div>
 						</div>
 						<!-- <div class="col-sm-12 col-lg-12">
@@ -57,7 +63,7 @@
 	</div>
 </div>
 
-<div class="modal" id="deletion-confirm">
+<div class="modal" id="deletion-confirm" ng-switch="form_mode">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -70,7 +76,8 @@
         <p>{{todo_list[delete_index].content}}</p>
       </div> -->
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#editform-modal">Cancel</button>
+        <button ng-switch-default type="button" class="btn btn-default" data-dismiss="modal" data-toggle="modal" data-target="#editform-modal">Cancel</button>
+        <button ng-switch-when="deletion" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
         <button type="button" class="btn btn-danger" data-dismiss="modal" ng-click="deleteConfirm()">
           <span class="glyphicon glyphicon-trash"></span>
           Delete

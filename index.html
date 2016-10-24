@@ -4,6 +4,28 @@
 	<meta charset="UTF-8">
 	<title>ToDo Application</title>
 	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+	<style type="text/css">
+		.flash-msg {
+			float: right;
+		    padding: 11px 15px;
+		    margin: 0;
+		    /*display: none;*/
+			opacity: 0;
+
+			-webkit-transition: opacity 0.5s ease-out;
+		    -moz-transition: opacity 0.5s ease-out;
+		    -ms-transition: opacity 0.5s ease-out;
+		    -o-transition: opacity 0.5s ease-out;
+		}
+		.flash-msg.active{
+			/*display: block;*/
+			
+		     opacity: 1;
+		}
+		.todo-list .list-group-item:focus{
+			background: #c4ecbd!important;
+		}
+	</style>
 </head>
 <body ng-app="App">
 
@@ -37,7 +59,7 @@
 							<task ng-repeat="task in todo_list"></task>
 						</div>
 					</div>
-					<editform selected-data="selected" mode-editable="editable" mode-creation="creation" on-update="updateTask(task)" on-delete="deleteTask(task)"></editform>
+					<editform selected-data="selected" form-mode="form_mode" on-update="updateTask(task)" on-delete="deleteTask(task)" on-save="saveTask(task)"></editform>
 				</div>
 
 			</div>
