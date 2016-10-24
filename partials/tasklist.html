@@ -1,0 +1,17 @@
+<div class="todo-list list-group">
+	<a ng-task task="task" on-show="showTask()" href="#" class="list-group-item clearfix" ng-repeat="task in todo_list track by task.id" >
+		<div class="pull-right">
+			<button class="btn btn-xs btn-info" ng-click="onShow()">
+				<span class="glyphicon glyphicon-edit"></span>
+			</button>
+			<button class="btn btn-xs btn-warning" data-toggle="modal" data-target="#deletion-confirm" ng-click="">
+				<span class="glyphicon glyphicon-trash"></span>
+			</button>
+		</div>
+		{{task.title}}
+		<div ng-switch="true">
+			<input ng-switch-when="true" type="text">
+			<span ng-switch-default>tst</span>
+		</div>
+	</a>
+</div>

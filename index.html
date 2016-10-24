@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ToDo Application</title>
+	<link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css">
+</head>
+<body ng-app="App">
+
+	<div class="navbar navbar-default navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<a href="#" class="navbar-brand">ToDo</a>
+				<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+			</div>
+		</div>
+	</div>
+	<div class="container" style="margin-top: 80px;">
+		<div class="row">
+			<div class="col-lg-offset-2 col-lg-8 col-md-offset-2 col-md-8 col-sm-12">
+
+				<div class="panel panel-success" ng-controller="TaskListCtrl">
+					<div class="panel-heading clearfix">
+						<div class="pull-right">
+							<button class="btn" style="padding: 0; background: none;" ng-click="createTask()">
+								<span class="glyphicon glyphicon-plus-sign" style="font-size: 28px;"></span>
+							</button>
+						</div>
+						<h3 class="panel-title" style="line-height: 30px; font-size: 25px;">ToDo List</h3>
+					</div>
+					<div class="panel-body">
+						<div class="todo-list list-group">
+							<task ng-repeat="task in todo_list"></task>
+						</div>
+					</div>
+					<editform selected-data="selected" mode-editable="editable" mode-creation="creation" on-update="updateTask(task)" on-delete="deleteTask(task)"></editform>
+				</div>
+
+			</div>
+		</div> <!-- .row -->
+	</div> <!-- .container -->
+
+	<script src="./node_modules/angular/angular.min.js"></script>
+	<script src="./node_modules/jquery/dist/jquery.min.js"></script>
+	<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+	<script src="./js/app.js"></script>
+</body>
+</html>

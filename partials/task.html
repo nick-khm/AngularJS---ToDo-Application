@@ -1,0 +1,11 @@
+<a  href="#" class="list-group-item clearfix" ng-click="selectTask(task)">
+	<div class="pull-right">
+		<button class="btn btn-xs btn-info" ng-click="editTask($event,task)">
+			<span class="glyphicon glyphicon-edit"></span>
+		</button>
+		<button class="btn btn-xs btn-warning" data-toggle="modal" data-dismiss="modal" ng-click="removeTask($event,task)" ng-click="">
+			<span class="glyphicon glyphicon-trash"></span>
+		</button>
+	</div>
+	{{task.title}}
+</a>
