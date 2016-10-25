@@ -1,14 +1,29 @@
 var edit_form_element = '#editform-modal';
 var delete_modal_element = '#deletion-confirm';
 
-var app = angular.module('App',[]);
+var app = angular.module('App',['LocalStorageModule']);
 
 app.config(['$logProvider', function($logProvider){
     $logProvider.debugEnabled(true);
 }]);
 
-app.controller('TaskListCtrl', function($scope,$log){
-	$scope.todo_list = [{id:1,title:'first'},{id:2,title:'second'}];
+app.config(function (localStorageServiceProvider) {
+  localStorageServiceProvider
+    .setPrefix('myApp')
+    // .setStorageType('sessionStorage')
+    // .setNotify(true, true)
+});
+
+app.controller('TaskListCtrl', function($scope,localStorageService,$log){
+	$scope.todo_list = [];
+	console.log(localStorageService.get('todo'))
+	if(localStorageService.get('todo') !== null) {
+		$scope.todo_list = localStorageService.get('todo');;
+	}
+
+	$scope.$watch('todo_list', function(value){
+		localStorageService.set('todo',value);
+	},true);
 	
 	$scope.createTask = function() {
 		$scope.selectTask({});
