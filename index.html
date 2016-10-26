@@ -25,6 +25,11 @@
 		.todo-list .list-group-item:focus{
 			background: #c4ecbd!important;
 		}
+
+	.dndPlaceholder{
+		list-style: none;
+		height: 20px;
+	}
 	</style>
 </head>
 <body ng-app="App">
@@ -55,8 +60,9 @@
 						<h3 class="panel-title" style="line-height: 30px; font-size: 25px;">ToDo List</h3>
 					</div>
 					<div class="panel-body">
-						<div class="todo-list list-group">
-							<task ng-repeat="task in todo_list"></task>
+						<div dnd-list="todo_list" class="todo-list list-group">
+							<task ng-repeat="task in todo_list"  dnd-draggable="task"
+        dnd-moved="todo_list.splice($index, 1)"></task>
 						</div>
 					</div>
 					<editform selected-data="selected" form-mode="form_mode" on-update="updateTask(task)" on-delete="deleteTask(task)" on-save="saveTask(task)"></editform>
@@ -66,9 +72,9 @@
 		</div> <!-- .row -->
 	</div> <!-- .container -->
 
-
 	<script src="./node_modules/angular/angular.min.js"></script>
 	<script src="./node_modules/angular-local-storage/dist/angular-local-storage.min.js"></script>
+	<script src="./node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.min.js"></script>
 	<script src="./node_modules/jquery/dist/jquery.min.js"></script>
 	<script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 	<script src="./js/app.js"></script>
