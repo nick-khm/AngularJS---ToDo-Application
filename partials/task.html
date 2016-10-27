@@ -1,11 +1,17 @@
 <a  href="#" class="list-group-item clearfix" ng-click="selectTask(task)">
 	<div class="pull-right">
-		<button class="btn btn-xs btn-info" ng-click="editTask($event,task)">
+		<button class="btn btn-sm btn-info" ng-click="editTask($event,task)">
 			<span class="glyphicon glyphicon-edit"></span>
 		</button>
-		<button class="btn btn-xs btn-warning" data-toggle="modal" data-dismiss="modal" ng-click="removeTask($event,task)" ng-click="">
+		<button class="btn btn-sm btn-warning" data-toggle="modal" data-dismiss="modal" ng-click="removeTask($event,task)" ng-click="">
 			<span class="glyphicon glyphicon-trash"></span>
 		</button>
 	</div>
-	{{task.title}}
+    <div class="btn-group checkbox-item" data-toggle="buttons">
+        <label class="btn btn-success" ng-click="checkTask($event)">
+            <input type="checkbox" autocomplete="off">
+            <span class="glyphicon glyphicon-ok"></span>
+        </label>
+    </div>
+    <div class="task-title">{{task.title}}</div>
 </a>

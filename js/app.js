@@ -64,6 +64,15 @@ app.controller('TaskListCtrl', function($scope,localStorageService,$log){
 			}
 		});
 	};
+	$scope.checkTask = function(event){
+		event.stopPropagation();
+		$(event.target).toggleClass('active');
+		
+	};
+	$scope.test = function(event){
+		console.log(event)
+		console.log('ttt')
+	}
 	$scope.deleteTask = function(task) {
 		angular.forEach($scope.todo_list, function(item, key) {
 			if(item.id == task.id){
@@ -71,6 +80,7 @@ app.controller('TaskListCtrl', function($scope,localStorageService,$log){
 			}
 		});
 	};
+
 });
 
 app.directive('task', function(){

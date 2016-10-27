@@ -5,30 +5,48 @@
 	<title>ToDo Application</title>
 	<link rel="stylesheet" href="./node_modules/bootswatch/flatly/bootstrap.css">
 	<style type="text/css">
-		.flash-msg {
-			float: right;
-		    padding: 11px 15px;
-		    margin: 0;
-		    /*display: none;*/
-			opacity: 0;
+	.flash-msg {
+		float: right;
+		padding: 11px 15px;
+		margin: 0;
+		/*display: none;*/
+		opacity: 0;
 
-			-webkit-transition: opacity 0.5s ease-out;
-		    -moz-transition: opacity 0.5s ease-out;
-		    -ms-transition: opacity 0.5s ease-out;
-		    -o-transition: opacity 0.5s ease-out;
-		}
-		.flash-msg.active{
-			/*display: block;*/
-			
-		     opacity: 1;
-		}
-		.todo-list .list-group-item:focus{
-			background: #c4ecbd!important;
-		}
+		-webkit-transition: opacity 0.5s ease-out;
+		-moz-transition: opacity 0.5s ease-out;
+		-ms-transition: opacity 0.5s ease-out;
+		-o-transition: opacity 0.5s ease-out;
+	}
+	.flash-msg.active{
+		/*display: block;*/
+
+		opacity: 1;
+	}
+	.todo-list .list-group-item:focus{
+		background: #c4ecbd!important;
+	}
 
 	.dndPlaceholder{
 		list-style: none;
 		height: 20px;
+	}
+
+	.todo-list .task-title{
+		display: inline-block;
+	}
+
+	/*checkbox*/
+	.checkbox-item{
+		margin-right: 10px;
+	}
+	.checkbox-item .btn span.glyphicon {    			
+		opacity: 0;				
+	}
+	.checkbox-item label{
+		padding: 5px 10px;
+	}
+	.checkbox-item .btn.active span.glyphicon {				
+		opacity: 1;				
 	}
 	</style>
 </head>
@@ -62,7 +80,7 @@
 					<div class="panel-body">
 						<div dnd-list="todo_list" class="todo-list list-group">
 							<task ng-repeat="task in todo_list"  dnd-draggable="task"
-        dnd-moved="todo_list.splice($index, 1)"></task>
+							dnd-moved="todo_list.splice($index, 1)"></task>
 						</div>
 					</div>
 					<editform selected-data="selected" form-mode="form_mode" on-update="updateTask(task)" on-delete="deleteTask(task)" on-save="saveTask(task)"></editform>
