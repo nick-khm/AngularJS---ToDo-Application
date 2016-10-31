@@ -64,15 +64,15 @@ app.controller('TaskListCtrl', function($scope,localStorageService,$log){
 			}
 		});
 	};
-	$scope.checkTask = function(event){
+	$scope.checkTask = function(event, task){
+		$log.debug('TaskListCtrl: checkTask');
 		event.stopPropagation();
-		$(event.target).toggleClass('active');
-		
+		if(task.is_done){
+			var task_index = $scope.todo_list.findIndex(function(el){return el.id == task.id;});
+			$scope.todo_list.splice(task_index,1);
+			$scope.todo_list.push(task);
+		}
 	};
-	$scope.test = function(event){
-		console.log(event)
-		console.log('ttt')
-	}
 	$scope.deleteTask = function(task) {
 		angular.forEach($scope.todo_list, function(item, key) {
 			if(item.id == task.id){

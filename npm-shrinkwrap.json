@@ -1,0 +1,36 @@
+{
+  "name": "todoapp3",
+  "version": "1.0.0",
+  "dependencies": {
+    "angular": {
+      "version": "1.5.8",
+      "from": "angular@latest",
+      "resolved": "https://registry.npmjs.org/angular/-/angular-1.5.8.tgz"
+    },
+    "angular-drag-and-drop-lists": {
+      "version": "1.4.0",
+      "from": "angular-drag-and-drop-lists@latest",
+      "resolved": "https://registry.npmjs.org/angular-drag-and-drop-lists/-/angular-drag-and-drop-lists-1.4.0.tgz"
+    },
+    "angular-local-storage": {
+      "version": "0.5.0",
+      "from": "angular-local-storage@latest",
+      "resolved": "https://registry.npmjs.org/angular-local-storage/-/angular-local-storage-0.5.0.tgz"
+    },
+    "bootstrap": {
+      "version": "3.3.7",
+      "from": "bootstrap@latest",
+      "resolved": "https://registry.npmjs.org/bootstrap/-/bootstrap-3.3.7.tgz"
+    },
+    "bootswatch": {
+      "version": "3.3.7",
+      "from": "bootswatch@latest",
+      "resolved": "https://registry.npmjs.org/bootswatch/-/bootswatch-3.3.7.tgz"
+    },
+    "jquery": {
+      "version": "3.1.1",
+      "from": "jquery@latest",
+      "resolved": "https://registry.npmjs.org/jquery/-/jquery-3.1.1.tgz"
+    }
+  }
+}

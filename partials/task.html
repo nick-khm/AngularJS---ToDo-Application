@@ -8,10 +8,7 @@
 		</button>
 	</div>
     <div class="btn-group checkbox-item" data-toggle="buttons">
-        <label class="btn btn-success" ng-click="checkTask($event)">
-            <input type="checkbox" autocomplete="off">
-            <span class="glyphicon glyphicon-ok"></span>
-        </label>
+        <input type="checkbox" ng-model="task.is_done" ng-click="checkTask($event,task)">
     </div>
-    <div class="task-title">{{task.title}}</div>
+    <div class="task-title" ng-class="{done:task.is_done}">{{task.title}}</div>
 </a>
