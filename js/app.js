@@ -14,7 +14,8 @@ app.config(function (localStorageServiceProvider) {
     // .setNotify(true, true)
 });
 
-app.controller('TaskListCtrl', function($scope,localStorageService,$log){
+app.controller('TaskListCtrl', function($scope,localStorageService,$log,$timeout){
+
 	$scope.todo_list = [];
 	console.log(localStorageService.get('todo'))
 	if(localStorageService.get('todo') !== null) {
@@ -31,14 +32,14 @@ app.controller('TaskListCtrl', function($scope,localStorageService,$log){
 	};
 	$scope.saveTask = function(task) {
 		task.id = $scope.todo_list.length;
-		$scope.todo_list.push(angular.copy(task));
+		$scope.todo_list.unshift(angular.copy(task));
 	};
 	$scope.selectTask = function(task) {
 		$log.debug('TaskListCtrl: task selected');
 		$log.debug(task);
 		$scope.selected = {task: task};
 		$scope.form_mode = 'show';
-		$(edit_form_element).modal('show');
+		$scope.showEditForm();
 	};
 	$scope.editTask = function(event,task){
 		event.stopPropagation();
@@ -76,7 +77,15 @@ app.controller('TaskListCtrl', function($scope,localStorageService,$log){
 			}
 		});
 	};
-
+	$scope.showEditForm = function(){
+		$(edit_form_element).one('shown.bs.modal', function(e){
+			$log.debug('bind focus')
+			// $timeout(function(){
+				$('#inputTitle').focus();
+			// }, 100); //ugly hack
+		});
+		$(edit_form_element).modal('show');
+	}
 });
 
 app.directive('task', function(){
@@ -95,6 +104,13 @@ app.directive('editform',function($log,$timeout){
 			onUpdate: '&',
 			onDelete: '&',
 			onSave: '&'
+		},
+		controller: function(){
+			this.$onInit = function(){
+				// console.log('oninit')
+				// this.onShow();
+				// // $('#editform-modal').modal('show');
+			}
 		},
 		templateUrl: '../partials/editform.html',
 		link: function(scope, element, attrs){

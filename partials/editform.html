@@ -21,7 +21,7 @@
 					<div class="form-group">
 						<div class="col-lg-10">
 							<h4 ng-switch-when="show">{{current_task.title}}</h4>
-							<input ng-if="form_mode=='creation'||form_mode=='edition'" ng-model="current_task.title" type="text" class="form-control" id="inputTitle" placeholder="Title">
+							<input ng-if="form_mode=='creation'||form_mode=='edition'" ng-model="current_task.title" type="text" class="form-control" id="inputTitle" autofocus placeholder="Title">
 						</div>
 					</div>
 					<div class="form-group">
